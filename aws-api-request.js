@@ -4,7 +4,6 @@ const crypto = require('crypto'),
 const { encode } = require('punycode');
 
 function awsApiRequest(options) {
-    console.log("Request:", JSON.stringify(options));
     return new Promise((resolve, reject) => {
         let region = options.region || awsApiRequest.region || process.env.AWS_DEFAULT_REGION,
             service = options.service,
@@ -17,9 +16,6 @@ function awsApiRequest(options) {
             payload = options.payload || '',
             host = options.host || `${service}.${region}.amazonaws.com`,
             headers = options.headers || {};
-        console.log("Actual options:", JSON.stringify({
-            region, service, sessionToken, method, path, querystring, payload, host, headers
-        }));
         function hmacSha256(data, key, hex=false) {
             return crypto.createHmac('sha256', key).update(data).digest(hex ? 'hex' : undefined);
         }
@@ -138,9 +134,6 @@ function createResult(data, res) {
 }
 
 function request(method, path, headers, querystring, data, callback) {
-    console.log("Request:", JSON.stringify({
-        method, path, headers, querystring, data
-    }));
     let qs = Object.keys(querystring).map(k => `${k}=${encodeURIComponent(querystring[k])}`).join('&');
     path += '?' + qs;
     let hostname = headers.Host;
