@@ -43,7 +43,7 @@ function uploadFileToS3(bucket, s3Key, filebuffer) {
     console.log("Uploading file to s3");
     return awsApiRequest({
         service : 's3', 
-        host: `${bucket}.s3.amazonaws.com`,
+        host: `${bucket}.s3.${awsApiRequest.region}.amazonaws.com`,
         path : s3Key,
         method: 'PUT',
         headers: { 'Content-Type' : 'application/octet-stream'},
