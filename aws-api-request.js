@@ -145,6 +145,7 @@ function request(method, path, headers, querystring, data, callback) {
     const port = 443;
     try {
         const options = { hostname, port, path, method, headers };
+        console.log("Actual request:", JSON.stringify(options));
         const req = https.request(options, res => {
     
             let chunks = [];
