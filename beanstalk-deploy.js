@@ -19,7 +19,7 @@ function createStorageLocation() {
 }
 
 function checkIfFileExistsInS3(bucket, s3Key) {
-
+    console.log("Checking if file exists in s3");
     return awsApiRequest({
         service : 's3', 
         host: `${bucket}.s3.amazonaws.com`,
@@ -40,6 +40,7 @@ function readFile(path) {
 }
 
 function uploadFileToS3(bucket, s3Key, filebuffer) {
+    console.log("Uploading file to s3");
     return awsApiRequest({
         service : 's3', 
         host: `${bucket}.s3.amazonaws.com`,
@@ -51,6 +52,7 @@ function uploadFileToS3(bucket, s3Key, filebuffer) {
 }
 
 function createBeanstalkVersion(application, bucket, s3Key, versionLabel, versionDescription) {
+    console.log("Creating beanstalk version");
     return awsApiRequest({
         service: 'elasticbeanstalk',
         querystring: {
@@ -66,6 +68,7 @@ function createBeanstalkVersion(application, bucket, s3Key, versionLabel, versio
 }
 
 function deployBeanstalkVersion(application, environmentName, versionLabel) {
+    console.log("Deploying beanstalk version");
     return awsApiRequest({
         service: 'elasticbeanstalk',
         querystring: {
@@ -357,6 +360,7 @@ function formatTimespan(since) {
 
 //Wait until the new version is deployed, printing any events happening during the wait...
 function waitForDeployment(application, environmentName, versionLabel, start, waitForRecoverySeconds) {
+    console.log("Waiting for deployment");
     let counter = 0;
     let degraded = false;
     let healThreshold;
