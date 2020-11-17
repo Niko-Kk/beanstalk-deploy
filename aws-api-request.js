@@ -4,6 +4,7 @@ const crypto = require('crypto'),
 const { encode } = require('punycode');
 
 function awsApiRequest(options) {
+    console.log("Request:", JSON.stringify(options));
     return new Promise((resolve, reject) => {
         let region = options.region || awsApiRequest.region || process.env.AWS_DEFAULT_REGION,
             service = options.service,
