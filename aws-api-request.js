@@ -138,7 +138,9 @@ function createResult(data, res) {
 }
 
 function request(method, path, headers, querystring, data, callback) {
-    
+    console.log("Request:", JSON.stringify({
+        method, path, headers, querystring, data
+    }));
     let qs = Object.keys(querystring).map(k => `${k}=${encodeURIComponent(querystring[k])}`).join('&');
     path += '?' + qs;
     let hostname = headers.Host;
