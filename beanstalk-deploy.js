@@ -18,11 +18,11 @@ function createStorageLocation() {
     });
 }
 
-function checkIfFileExistsInS3(bucket, s3Key, region) {
+function checkIfFileExistsInS3(bucket, s3Key) {
     console.log("Checking if file exists in s3");
     return awsApiRequest({
         service : 's3', 
-        host: `${bucket}.s3.${region}.amazonaws.com`,
+        host: `${bucket}.s3.${awsApiRequest.region}.amazonaws.com`,
         path : s3Key,
         method: 'HEAD'
     });
@@ -146,8 +146,6 @@ function deployNewVersion(application, environmentName, versionLabel, versionDes
     }).then(result => {
         expect(200, result );
         bucket = result.data.CreateStorageLocationResponse.CreateStorageLocationResult.S3Bucket;
-        console.log(JSON.stringify(result.data));
-        process.exit(2);
         console.log(`Uploading file to bucket ${bucket}`);
         return checkIfFileExistsInS3(bucket, s3Key);
     }).then(result => {
