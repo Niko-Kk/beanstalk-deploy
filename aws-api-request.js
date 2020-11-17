@@ -17,7 +17,9 @@ function awsApiRequest(options) {
             payload = options.payload || '',
             host = options.host || `${service}.${region}.amazonaws.com`,
             headers = options.headers || {};
-        console.log("Actual options:", JSON.stringify(options));
+        console.log("Actual options:", JSON.stringify({
+            region, service, sessionToken, method, path, querystring, payload, host, headers
+        }));
         function hmacSha256(data, key, hex=false) {
             return crypto.createHmac('sha256', key).update(data).digest(hex ? 'hex' : undefined);
         }
