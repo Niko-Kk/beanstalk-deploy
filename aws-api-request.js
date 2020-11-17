@@ -17,7 +17,7 @@ function awsApiRequest(options) {
             payload = options.payload || '',
             host = options.host || `${service}.${region}.amazonaws.com`,
             headers = options.headers || {};
-
+        console.log("Actual options:", JSON.stringify(options));
         function hmacSha256(data, key, hex=false) {
             return crypto.createHmac('sha256', key).update(data).digest(hex ? 'hex' : undefined);
         }
@@ -145,7 +145,6 @@ function request(method, path, headers, querystring, data, callback) {
     const port = 443;
     try {
         const options = { hostname, port, path, method, headers };
-        console.log("Actual request:", JSON.stringify(options));
         const req = https.request(options, res => {
     
             let chunks = [];
